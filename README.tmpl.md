@@ -30,8 +30,17 @@ https://zenobi.us
 </a>
 
   <div class="contributions">
-
+    <h3 class="contributions_header">Recent Contributions</h3>
+    <ul class="contributions_list">
+    <!-- loop over contributions using handlebars syntax -->
+    {{#each items}}
+      <li class="contributions_item">
+        <a href="{{this.html_url}}" class="contributions_link">
+          {{this.title}}
+        </a>
+      </li>
+    {{/each}}
+    </ul>
   </div>
 
 </div>
-

@@ -31,7 +31,7 @@ jobs:
         name: Render Template
         id: render-template
         with:
-          template: README.md.tmpl
+          template: README.tmpl.md
           inputs: ${{ steps.context.outputs.inputs }}
 
       - name: Write to file
