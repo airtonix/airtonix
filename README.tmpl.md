@@ -9,8 +9,10 @@ https://zenobi.us
 </a>
 </div>
 
+{{#if contributions.length}}
 # Contributions
 
-{{#each items}}
+{{#each contributions}}
 - [{{title}}]]({{this.html_url}})
 {{/each}}
+{{/if}}
