@@ -13,6 +13,10 @@ https://zenobi.us
 # Contributions
 
 {{#each contributions}}
-- [{{repository.nameWithOwner}}]({{repository.url}}):  [{{title}}]({{url}})
+- [{{repository}}]({{repository.url}})
+  {{#each pullRequests}}
+  - [{{title}}]({{url}})
+  {{/each}}
+
 {{/each}}
 {{/if}}

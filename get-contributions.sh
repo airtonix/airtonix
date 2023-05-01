@@ -25,5 +25,25 @@ query {
 }
 """
 
-gh api graphql -f query="$GET_CONTRIBUTIONS_QUERY" |
-	jq -r '.data.search.nodes[] | .' -c
+# pull the nodes
+# group by repository
+# map to a new object
+#  repository: nameWithOwner
+#  pullRequests: map to a new object
+#  title: title
+#  url: url
+
+JQ_TRANSFORM="""
+.data.search.nodes |
+group_by(.repository.nameWithOwner) |
+map({
+  repository: .[0].repository.nameWithOwner,
+  repositoryUrl: .[0].repository.url,
+  pullRequests: map({
+    title: .title,
+    url: .url,
+  })
+})
+"""
+
+gh api graphql -f query="$GET_CONTRIBUTIONS_QUERY" | jq -r "$JQ_TRANSFORM"
