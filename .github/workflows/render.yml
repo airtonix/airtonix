@@ -1,7 +1,9 @@
 name: Render Profile
 
 on:
-  workflow_run:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
   push:
 
 # only allows one pipeline to run for this file
