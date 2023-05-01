@@ -46,4 +46,4 @@ map({
 })
 """
 
-gh api graphql -f query="$GET_CONTRIBUTIONS_QUERY" | jq -r "$JQ_TRANSFORM"
+gh api graphql -f query="$GET_CONTRIBUTIONS_QUERY" | jq -r "$JQ_TRANSFORM" | jq -s -c
