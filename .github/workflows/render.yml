@@ -1,0 +1,40 @@
+name: Render Profile
+
+on:
+  workflow_run:
+  push:
+
+# only allows one pipeline to run for this file
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  RenderProfile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate Context
+        id: context
+        shell: bash
+        run: |
+          MY_CONTRIBUTIONS_URL="https://api.github.com/search/issues?q=is:pr+is:merged+merged:%3E2018-10-01+author:airtonix+is:public+-user:airtonix&sort=merged"
+          contributions="$( curl -s $MY_CONTRIBUTIONS_URL | jq -r '.items' -s -c )"
+
+          # echo output into step called contributions
+          echo "contributions=$contributions" >> $GITHUB_OUTPUT
+
+      - uses: badsyntax/github-action-render-template@v0.0.1
+        name: Render Template
+        id: render-template
+        with:
+          template: README.md.tmpl
+          inputs: ${{ steps.context.outputs.inputs }}
+
+      - name: Write to file
+        shell: bash
+        run: |
+          echo "${{ steps.render-template.outputs.rendered }}" > README.md
