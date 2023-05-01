@@ -17,4 +17,4 @@ for i in "${!contributions[@]}"; do
 done
 
 # output the array
-echo "${contributions[@]}" | jq -s
+echo "${contributions[@]}" | jq -s -c
