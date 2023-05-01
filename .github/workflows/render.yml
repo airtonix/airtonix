@@ -43,5 +43,13 @@ jobs:
 
       - name: Write to file
         shell: bash
+        env:
+          OUTPUT: ${{ steps.render-template.outputs.result }}
         run: |
-          echo "${{ steps.render-template.outputs.rendered }}" > README.md
+          echo "$OUTPUT" > README.md
+
+      - name: commit files
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: README.md
+          author_name: github_actions
