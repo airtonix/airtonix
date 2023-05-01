@@ -13,6 +13,6 @@ https://zenobi.us
 # Contributions
 
 {{#each contributions}}
-- [{{repo_name}}]({{repository_url}}) [{{title}}]({{this.html_url}})
+- [{{repository.nameWithOwner}}]({{repository.url}}):  [{{title}}]({{url}})
 {{/each}}
 {{/if}}
